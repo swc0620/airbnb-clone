@@ -15,6 +15,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         number = options.get("number")
         seeder = Seed.seeder()
+        # Not to create fake data which are staff or superuser
         seeder.add_entity(User, number, {
             "is_staff": False,
             "is_superuser": False

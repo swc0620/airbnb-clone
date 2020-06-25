@@ -1,0 +1,1 @@
+# __init__.py tells django that this is a python & django folder
