@@ -2,6 +2,7 @@ from django.db import models
 from core import models as core_models
 from django_countries.fields import CountryField
 # from users import models as user_models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -106,3 +107,7 @@ class Room(core_models.TimeStampedModel):
             for review in all_reviews:
                 all_ratings += review.rating_average()
             return round(all_ratings / len(all_reviews))
+
+    # adds 'view on site' button on django admin panel, which allow you to go directly to the absolute url from admin panel
+    def get_absolute_url(self):
+        return reverse("rooms:detail", kwargs=={"pk": self.pk})

@@ -1,8 +1,10 @@
-from math import ceil
-from django.shortcuts import render, redirect
-from django.core.paginator import Paginator, EmptyPage
-from django.views.generic import ListView
+# from math import ceil
+# from django.shortcuts import render, redirect
+# from django.core.paginator import Paginator, EmptyPage
+from django.views.generic import ListView, DetailView
 from django.utils import timezone
+# from django.urls import reverse
+# from django.http import Http404
 from . import models
 
 # Create your views here.
@@ -27,6 +29,7 @@ class HomeView(ListView):
         context["now"] = now
         return context
 
+# Django Function Based Views
 # def all_rooms(request):
 #     page = request.GET.get("page", 1)
 #     room_list = models.Room.objects.all()
@@ -60,5 +63,24 @@ class HomeView(ListView):
     #     "page_range": range(1, page_count + 1),
     #     })
 
-    
-    
+
+class RoomDetail(DetailView):
+
+    """ RoomDetail definition  """
+
+    model = models.Room
+    # pk_url_kwarg = "potato"
+
+# def room_detail(request, potato):
+# def room_detail(request, pk):
+#     try:
+#         room = models.Room.objects.get(pk=pk)
+#         return render(request, "rooms/detail.html", context={
+#             "room": room,
+#         })
+#     except models.Room.DoesNotExist:
+#         # return redirect("")
+#         # return redirect(reverse("core:home")
+        
+#         # only by raising Http404, django knows to render 404.html
+#         raise Http404()

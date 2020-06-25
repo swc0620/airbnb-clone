@@ -9,7 +9,13 @@
     {{now}}
 
     {% for room in rooms  %}
-        <h1>{{room.name}} / ${{room.price}}</h1>   
+        <h3>
+            <!-- django url tags allow you to allocate url in simple way { url "namespace in config.urls : name in rooms.urls" needed argument } -->
+            <!-- <a href="/rooms/{{room.pk}}"> -->
+            <a href="{% url "rooms:detail" room.pk %}">
+                {{room.name}} / ${{room.price}}
+            </a>
+        </h3>   
     {% endfor %}
 
     <h5>
