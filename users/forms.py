@@ -66,9 +66,12 @@ class SignUpForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         # when commit=False, it is going to create a django object, but not put that into the database
         user = super().save(commit=False)
+
+        # the code below saves email as username
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
         user.username = email
+
         user.set_password(password)
         user.save()
 
