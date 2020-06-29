@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from . import models
 
 class LoginForm(forms.Form):
@@ -40,46 +41,51 @@ class LoginForm(forms.Form):
     #     except models.User.DoesNotExist:
     #         raise forms.ValidationError("User does not exist")
 
+class SignUpForm(UserCreationForm):
+
+    username = forms.EmailField(label="Email")
+ 
+
 # when you just make form, ModelForm recognizes which model you want to make, so you don't need to define fields in model.
-class SignUpForm(forms.ModelForm):
-    class Meta:
-        model = models.User
-        fields = (
-            "first_name", 
-            "last_name", 
-            "email",
-            # "birthdate"
-            )
+# class SignUpForm(forms.ModelForm):
+#     class Meta:
+#         model = models.User
+#         fields = (
+#             "first_name", 
+#             "last_name", 
+#             "email",
+#             # "birthdate"
+#             )
 
-    password = forms.CharField(widget=forms.PasswordInput)
-    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+#     password = forms.CharField(widget=forms.PasswordInput)
+#     password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
 
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if models.User.objects.filter(email=email).exists():
-            raise forms.ValidationError("User with the same email already exists")
-        return email
+#     def clean_email(self):
+#         email = self.cleaned_data.get("email")
+#         if models.User.objects.filter(email=email).exists():
+#             raise forms.ValidationError("User with the same email already exists")
+#         return email
 
-    def clean_password1(self):
-        password = self.cleaned_data.get("password")
-        password1 = self.cleaned_data.get("password1")
+#     def clean_password1(self):
+#         password = self.cleaned_data.get("password")
+#         password1 = self.cleaned_data.get("password1")
 
-        if password != password1:
-            raise forms.ValidationError("Password confirmation does not match")
-        else:
-            return password
+#         if password != password1:
+#             raise forms.ValidationError("Password confirmation does not match")
+#         else:
+#             return password
 
-    def save(self, *args, **kwargs):
-        # when commit=False, it is going to create a django object, but not put that into the database
-        user = super().save(commit=False)
+#     def save(self, *args, **kwargs):
+#         # when commit=False, it is going to create a django object, but not put that into the database
+#         user = super().save(commit=False)
 
-        # the code below saves email as username
-        email = self.cleaned_data.get("email")
-        password = self.cleaned_data.get("password")
-        user.username = email
+#         # the code below saves email as username
+#         email = self.cleaned_data.get("email")
+#         password = self.cleaned_data.get("password")
+#         user.username = email
 
-        user.set_password(password)
-        user.save()
+#         user.set_password(password)
+#         user.save()
 
 # class SignUpForm(forms.Form):
 #     first_name = forms.CharField(max_length=80)
