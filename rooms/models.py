@@ -106,8 +106,13 @@ class Room(core_models.TimeStampedModel):
         if len(all_reviews) > 0:
             for review in all_reviews:
                 all_ratings += review.rating_average()
-            return round(all_ratings / len(all_reviews))
+            return round(all_ratings / len(all_reviews), 2)
 
     # adds 'view on site' button on django admin panel, which allow you to go directly to the absolute url from admin panel
     def get_absolute_url(self):
         return reverse("rooms:detail", kwargs=={"pk": self.pk})
+
+    def first_photo(self):
+        # using 'unpacking value' of python. python will assign first element of array to the variable
+        photo, = self.photos.all()[:1]
+        return photo.file.url
