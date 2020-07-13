@@ -80,6 +80,7 @@ class SignUpForm(forms.ModelForm):
         else:
             return password
 
+    # intercepting between saving process of form 
     def save(self, *args, **kwargs):
         # when commit=False, it is going to create a django object, but not put that into the database
         user = super().save(commit=False)

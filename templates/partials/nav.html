@@ -1,6 +1,18 @@
 {% load static %}
 <ul class="flex items-center text-sm font-medium h-full">
     {% if user.is_authenticated %}
+        <li class="nav_link">
+            <a href="{% url "users:switch-hosting" %}">
+                {% if request.session.is_hosting %}
+                    Stop hosting
+                {% else %}
+                    Start hosting
+                {% endif %}
+            </a>
+        </li>
+        {% if request.session.is_hosting %}
+            <li class="nav_link"><a href="{% url "rooms:create" %}">Create Room</a></li>
+        {% endif %}
         <!-- <li class="nav_link"><a href=" url "users:profile" ">Profile</a></li> -->
         <li class="nav_link"><a href="{{user.get_absolute_url}}">Profile</a></li>
         <!-- django Context Processors are functions that add data to templates, which can be accessed from anywhere on templates, even though they were not added on the context from view -->
