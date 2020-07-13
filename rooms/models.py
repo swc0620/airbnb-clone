@@ -116,3 +116,13 @@ class Room(core_models.TimeStampedModel):
         # using 'unpacking value' of python. python will assign first element of array to the variable
         photo, = self.photos.all()[:1]
         return photo.file.url
+
+    def get_next_four_photos(self):
+        photos = self.photos.all()[1:5]
+        return photos
+
+    def get_beds(self):
+        if self.beds == 1:
+            return "1 bed"
+        else:
+            return f'{self.beds} beds'
