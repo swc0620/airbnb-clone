@@ -1,6 +1,8 @@
 {% load static %}
 <ul class="flex items-center text-sm font-medium h-full">
     {% if user.is_authenticated %}
+        <!-- <li class="nav_link"><a href=" url "users:profile" ">Profile</a></li> -->
+        <li class="nav_link"><a href="{{user.get_absolute_url}}">Profile</a></li>
         <!-- django Context Processors are functions that add data to templates, which can be accessed from anywhere on templates, even though they were not added on the context from view -->
         <li class="nav_link"><a href="{% url "users:logout" %}">Log out</a></li>
     {% else %}
