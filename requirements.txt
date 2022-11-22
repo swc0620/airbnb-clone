@@ -14,7 +14,7 @@ flake8==3.7.9
 idna==2.10
 mccabe==0.6.1
 pathspec==0.8.0
-Pillow==7.1.2
+Pillow==9.3.0
 pycodestyle==2.5.0
 pyflakes==2.1.1
 python-dateutil==2.8.1
